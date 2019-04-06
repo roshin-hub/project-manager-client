@@ -9,6 +9,8 @@ import { TaskComponent } from './task/task.component';
 import { UserComponent } from './user/user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AgGridModule } from 'ag-grid-angular';
+
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AgGridModule.withComponents([]),    
   ],
   providers: [],
   bootstrap: [AppComponent]

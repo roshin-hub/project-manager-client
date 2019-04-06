@@ -31,3 +31,13 @@
     <strong>Message:</strong> 
     <span>{{ messageForm.controls.message.value }}</span>
   </div>
+
+
+  <ag-grid-angular 
+    style="width: 500px; height: 500px;" 
+    class="ag-theme-balham"
+    [pagination]="true"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs">
+    
+</ag-grid-angular>
