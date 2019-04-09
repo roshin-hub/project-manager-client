@@ -1,12 +1,16 @@
 <header>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
   <div class="container">
-    <a routerLink="/">{{ appTitle }}</a>
-    <nav>
-      <ul>
-        <li><a routerLink="/">Tasks</a></li>
-        <li><a routerLink="/project">Project</a></li>
-        <li><a routerLink="/user">User</a></li>
+    <a routerLink="/" style="color:white;font-weight:bold">{{ appTitle }}</a>
+    <nav>      
+      <ul>        
+        <li><a routerLink="/project" style="color:white;">Add Project</a></li>
+        <li><a routerLink="/task" style="color:white;">Add Task</a></li>
+        <li><a routerLink="/user" style="color:white;">Add User</a></li>
+        <li><a routerLink="/" style="color:white;">View Tasks</a></li>
       </ul>
     </nav>
   </div>
+
 </header>
