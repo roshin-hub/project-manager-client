@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { ServerConfig } from '../environments/environment';
 import { AppError } from './models/app.error';
 import { Product } from './models/product';
+import { User } from './models/user';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,9 +27,7 @@ export class DataService {
     return console.log('clicked');
   }
 
-  getUsers() {
-    return this.http.get('https://reqres.in/api/users');
-  }
+ 
 
   getProjects() {
     return this.http.get('http://localhost:8080/project');
@@ -44,12 +43,28 @@ export class DataService {
     console.log(product)
     console.log(this.server.url)
     
-    return this.http.post<Product>('http://localhost:8080/project/create', product, httpOptions)
+    return this.http.post<Product>(this.server.url+'/project/create', product, httpOptions)
      .pipe(             
         //catchError(err => this.appError.handleError(err))
         catchError(err => this.appError.handleError(err))        
       );
       
+  } 
+
+  createUser(user: User): Observable<User | AppError> {
+      
+    return this.http.post<User>(this.server.url+'/user/create', user, httpOptions)
+     .pipe(         
+        catchError(err => this.appError.handleError(err))        
+      );
+      
   }  
+  
+  getUsers(): Observable<any | AppError> {
+    return this.http.get<any>(this.server.url + '/user')
+      .pipe(          
+        catchError(err => this.appError.handleError(err))
+      );
+  }   
   
 }
