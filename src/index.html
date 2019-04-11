@@ -9,6 +9,23 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
   <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+
+  <script>
+
+  
+         $(function() {
+            $('input[name=managerdlist]').on('input',function() {              
+              var selectedOption = $('#managerdlist option[value="'+$(this).val()+'"]');
+              $("#projectmanagerid").val(selectedOption.attr('id'));             
+              
+            });
+          }); 
+        
+      
+
+        
+
+    </script>
 </head>
 <body>
   <app-root></app-root>

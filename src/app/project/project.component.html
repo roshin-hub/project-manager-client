@@ -1,103 +1,149 @@
-<h1>Add Project</h1>
+<div *ngIf="success"  style="color:green">
+    <strong >Project added successfully</strong> 
+</div>
+<form [formGroup]="projectForm" (ngSubmit)="createProject()">  
+  <fieldset>  
+     <div id="legend">
+      <legend class="">Add Project</legend>
+    </div> 
 
- 
+<!--
+    
+    <input type="date" id="start" name="trip-start">
+    <input type="range" name="rangeInput" min="0" value="30" max="30" onchange="updateTextInput(this.value);">
 
 
-<!------ Include the above in your HEAD tag ---------->
+     
+     <label for="image_helper" class="form-control-label">
+          Image Helper
+        </label>
+        <input type="text" class="form-control" placeholder="Image Helper" list="images" [formControl]="form.controls['image_helper']"
+          [ngClass]="{
+            'form-control-danger':
+              form.controls['image_helper'].hasError('required') &&
+              form.controls['image_helper'].touched
+          }" />
+        <datalist id="images" style="overflow-y: auto!important;max-height: 500px">
+          <option *ngFor="let p of OpenstackJson.images" [value]="p">{{ p }}
+          </option>
+        </datalist>
+        <div class="form-control-feedback" *ngIf="
+            form.controls['image_helper'].hasError('required') &&
+            form.controls['image_helper'].touched
+          ">
+          Image helper is required.
+        </div>
 
-<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-  <fieldset>
-    <div id="legend">
-      <legend class="">Register</legend>
-    </div>
-    <div class="control-group">
-      <!-- Username -->
-      <label class="control-label"  for="username">Username</label>
+        <div class="row form-group" [ngClass]="{'has-danger': form.controls['ptag'].hasError('required') && form.controls['ptag'].touched && PostObj.PrimaryPostComponents != 'None'}">
+                <div class="col-sm-4">
+                  <label for="ptag" class="form-control-label">
+                    Primary Tags
+                  </label>
+                </div>
+                <div class="col-sm-7 ">
+                  <angular2-multiselect [(data)]="ptagList" class="form-control" [settings]="dropdownSettings"
+                    formControlName="ptag" (onSelect)="onPtagsItemSelect($event)" (onDeSelect)="OnPtagsItemDeSelect($event)"
+                    (onSelectAll)="onPtagsSelectAll($event)" (onDeSelectAll)="onPtagsDeSelectAll($event)"></angular2-multiselect>
+                  <div class="form-control-feedback" *ngIf="form.controls['ptag'].hasError('required') && form.controls['ptag'].touched && PostObj.PrimaryPostComponents != 'None'">Primary
+                    Tags Is Required.</div>
+                </div>
+              </div>-->
+   
+
+      
+
+
+
+    <div class="control-group">       
       <div class="controls">
-        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
-        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
+        <input type="text" formControlName="projectname" placeholder="Project Name" class="input-xlarge">
+        <div *ngIf="submitted && projectForm.controls.projectname.errors" class="error">
+          <div *ngIf="projectForm.controls.projectname.errors.required" style="color:red">Please provide Project Name</div>
+        </div>               
       </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- E-mail -->
-      <label class="control-label" for="email">E-mail</label>
-      <div class="controls">
-        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
-        <p class="help-block">Please provide your E-mail</p>
+    </div> 
+    <div style="height:10px;clear:both"></div> 
+
+    <div class="control-group">       
+      <div class="controls" style="width:200px;float:left">
+        <input type="text" formControlName="projectstart" placeholder="Start Date" class="input-xlarge" onfocus="(this.type='date')" >        
+        <div *ngIf="submitted && projectForm.controls.projectstart.errors" class="error">
+          <div *ngIf="projectForm.controls.projectstart.errors.required" style="color:red">Please provide Start Date</div>
+        </div>               
       </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- Password-->
-      <label class="control-label" for="password">Password</label>
-      <div class="controls">
-        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
-        <p class="help-block">Password should be at least 4 characters</p>
+       <div class="controls" style="width:200px;float:left">
+        <input type="text" formControlName="projectend" placeholder="End Date" class="input-xlarge" onfocus="(this.type='date')" >        
+        <div *ngIf="submitted && projectForm.controls.projectend.errors" class="error">
+          <div *ngIf="projectForm.controls.projectend.errors.required" style="color:red">Please provide End Date</div>
+        </div>               
       </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- Password -->
-      <label class="control-label"  for="password_confirm">Password (Confirm)</label>
+    </div> 
+    <div style="height:10px;clear:both"></div> 
+
+     <div class="control-group">       
       <div class="controls">
-        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
-        <p class="help-block">Please confirm password</p>
+         <div style="float:left;width:100px;font-weight: normal;">
+          <label for="projectpriority" >
+          Priority 
+          </label>
+         </div>
+         <div style="float:left"><label> 0 </label></div>
+         <div style="float:left">
+          <input type="range" formControlName="projectpriority" class="input-xlarge"/>       
+         </div> 
+        <div style="float:left"><label> 30 </label></div>  
+                    
       </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- Button -->
-      <div class="controls">
-        <button class="btn btn-success">Register</button>
+    </div> 
+    <div style="height:10px;clear:both"></div> 
+
+    <div class="control-group">       
+      <div class="controls">   
+
+     
+          <input type="hidden" id="projectmanagerid"  formControlName="projectmanagerid" >
+         <input type="text" name='managerdlist' list="managerdlist" formControlName="projectmanager"  placeholder="Search Manager"  >
+        <datalist id="managerdlist">
+          <option *ngFor="let c of managerList" id={{c._id}} [value]="c.first_name" >{{c.first_name}} {{c.last_name}}</option>
+        </datalist>        
+        <div *ngIf="submitted && projectForm.controls.projectmanagerid.errors" class="error">
+          <div *ngIf="projectForm.controls.projectmanagerid.errors.required" style="color:red">Please provide Manager Name</div>
+        </div>     
+        
+      </div>       
+    </div> 
+    <div style="height:10px;clear:both"></div> 
+
+    
+    <div class="control-group">      
+      <div class="controls" style="float:left;width:80px" >
+        <button class="btn btn-success">Add</button>         
+      </div>
+
+      <div class="controls" style="float:left">
+        <button type="reset"  class="btn btn-success" >Reset</button>         
       </div>
     </div>
   </fieldset>
 </form>
 
-<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
 
-    <h5 *ngIf="success">Your form is valid!</h5>
 
-    <label>
-      Name:
-      <input type="text" formControlName="title" >
-      <div *ngIf="submitted && messageForm.controls.title.errors" class="error">
-        <div *ngIf="messageForm.controls.title.errors.required">Your name is required</div>
-      </div>
-    </label>
+
+<div style="height:20px;clear:both"></div>
+
+<div style="clear:both;padding:0px;width: 80%;height:346px">
   
-    <label>
-      Message:
-     
-      <input type="number" formControlName="priority" >
-      <div *ngIf="submitted && messageForm.controls.priority.errors" class="error">
-        <div *ngIf="messageForm.controls.priority.errors.required">A message is required</div>
-      </div>
-    </label>
-
-    <input type="submit" value="Send message" class="cta">
-  
-  </form>
-
-
-
-  <div *ngIf="submitted" class="results">
-    <strong>Name:</strong> 
-    <span>{{ messageForm.controls.title.value }}</span>
-
-    <strong>Message:</strong> 
-    <span>{{ messageForm.controls.priority.value }}</span>
-  </div>
-
-<div style="clear:both;padding:20px;width:80%">
-  <ag-grid-angular 
-    style="width: 80%; height: 500px;" 
+  <ag-grid-angular style="width: 75%; height: 100%;"     
     class="ag-theme-balham"
+    paginationPageSize= 10
     [pagination]="true"
     [rowData]="rowData" 
-    [columnDefs]="columnDefs">
-    
-</ag-grid-angular>
+    [columnDefs]="columnDefs">    
+  </ag-grid-angular>
 
 </div>
+
+
+
+

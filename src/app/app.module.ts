@@ -10,6 +10,8 @@ import { UserComponent } from './user/user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatAutocompleteModule,MatInputModule} from '@angular/material';
 
 
 
@@ -23,9 +25,12 @@ import { AgGridModule } from 'ag-grid-angular';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
     AgGridModule.withComponents([]),    
   ],
   providers: [],

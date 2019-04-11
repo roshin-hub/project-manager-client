@@ -1,7 +1,8 @@
 import { Component, OnInit ,ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
 import { DataService } from '../data.service';
 import { Product } from '../models/product';
+
 
 @Component({
   selector: 'app-project',
@@ -11,32 +12,43 @@ import { Product } from '../models/product';
 export class ProjectComponent implements OnInit {
 
  
-  messageForm: FormGroup;
+  projectForm: FormGroup;  
   submitted = false;
   success = false;
-  resptxt = '';
-  
-
+  resptxt = '';  
+  managerlistValue: string;
+  managerList:  any; 
+   
+  rowData: any;
   columnDefs = [
         {headerName: 'Title', field: 'title',sortable: true ,filter: true},        
         {headerName: 'Status', field: 'status',sortable: true },
-        {headerName: 'Priority', field: 'priority',sortable: true}
-    ];
+        {headerName: 'Priority', field: 'priority',sortable: true},
+        {headerName: 'Priority', field: 'projectstart',sortable: true}
+    ];     
+    
 
-    rowData: any;
+  constructor(private formBuilder: FormBuilder,private service: DataService) { 
+    
+    
+  }
 
-  constructor(private formBuilder: FormBuilder,private service: DataService) { }
+ 
 
   ngOnInit() {
-    this.messageForm = this.formBuilder.group({
-      title: ['', Validators.required],
-      priority: ['', Validators.required]
-    });
-
-    /*fetch('https://api.myjson.com/bins/15psn9')
-      .then(result => result.json())
-      .then(rowData => this.rowData = rowData);*/
+    this.projectForm = this.formBuilder.group({
+     
+      projectname: ['', Validators.required],
+      projectstart: ['', Validators.required],
+      projectend: ['', Validators.required],
+      projectpriority: ['', Validators.required],
+      projectmanager: ['', Validators.required],
+      projectmanagerid: ['', Validators.required]
+    });     
     
+    this.service.getUsers().subscribe(data => {
+        this.managerList = data        
+      });
     this.service.getProjects().subscribe(data => {
         this.rowData = data        
       });
@@ -44,17 +56,17 @@ export class ProjectComponent implements OnInit {
      
   }
 
-  onSubmit() {
+  createProject() {
     this.submitted = true;
 
-    if (this.messageForm.invalid) {
+    if (this.projectForm.invalid) {
         return;
     }
 
 
     let product = new Product();
-    product.title = this.messageForm.value.title;
-    product.priority = this.messageForm.value.priority;  
+    product.title = this.projectForm.value.title;
+    product.priority = this.projectForm.value.priority;  
 
     this.service.createProject(product).subscribe((result) => {
     console.log("This code will be executed when the HTTP call returns successfully")
@@ -83,14 +95,14 @@ export class ProjectComponent implements OnInit {
       console.log(err);
     }); */   
 
-    //console.log(this.messageForm.value);
-    this.service.createProject(this.messageForm.value)
+    //console.log(this.projectForm.value);
+    this.service.createProject(this.projectForm.value)
     //console.log(this.resptxt);
     alert('The form was submitted');
     this.service.getProjects().subscribe(data => {
         this.rowData = data        
       });
-    this.messageForm.reset();
+    this.projectForm.reset();
 
     this.success = true;
 
@@ -104,6 +116,12 @@ export class ProjectComponent implements OnInit {
 
 
 }
+
+public saveCode(e): void {
+    let name = e.target.value;
+    let list = this.managerList.filter(x => x.name === name)[0];
+    console.log(list.id);
+  }
 
 
 
