@@ -15,7 +15,8 @@
 
   
          $(function() {
-            $('input[name=managerdlist]').on('input',function() {              
+            $('input[name=managerdlist]').on('input',function() { 
+                       
               var selectedOption = $('#managerdlist option[value="'+$(this).val()+'"]');
               $("#projectmanagerid").val(selectedOption.attr('id'));             
               

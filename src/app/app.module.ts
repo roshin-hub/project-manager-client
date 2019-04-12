@@ -13,6 +13,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatAutocompleteModule,MatInputModule} from '@angular/material';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { TasksComponent } from './tasks/tasks.component';
 
 
 
@@ -22,7 +23,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
     NavComponent,
     ProjectComponent,
     TaskComponent,
-    UserComponent
+    UserComponent,
+    TasksComponent
   ],
   imports: [
     BrowserModule,

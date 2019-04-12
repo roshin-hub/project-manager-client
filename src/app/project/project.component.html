@@ -3,57 +3,9 @@
 </div>
 <form [formGroup]="projectForm" (ngSubmit)="createProject()">  
   <fieldset>  
-     <div id="legend">
+    <div id="legend">
       <legend class="">Add Project</legend>
     </div> 
-
-<!--
-    
-    <input type="date" id="start" name="trip-start">
-    <input type="range" name="rangeInput" min="0" value="30" max="30" onchange="updateTextInput(this.value);">
-
-
-     
-     <label for="image_helper" class="form-control-label">
-          Image Helper
-        </label>
-        <input type="text" class="form-control" placeholder="Image Helper" list="images" [formControl]="form.controls['image_helper']"
-          [ngClass]="{
-            'form-control-danger':
-              form.controls['image_helper'].hasError('required') &&
-              form.controls['image_helper'].touched
-          }" />
-        <datalist id="images" style="overflow-y: auto!important;max-height: 500px">
-          <option *ngFor="let p of OpenstackJson.images" [value]="p">{{ p }}
-          </option>
-        </datalist>
-        <div class="form-control-feedback" *ngIf="
-            form.controls['image_helper'].hasError('required') &&
-            form.controls['image_helper'].touched
-          ">
-          Image helper is required.
-        </div>
-
-        <div class="row form-group" [ngClass]="{'has-danger': form.controls['ptag'].hasError('required') && form.controls['ptag'].touched && PostObj.PrimaryPostComponents != 'None'}">
-                <div class="col-sm-4">
-                  <label for="ptag" class="form-control-label">
-                    Primary Tags
-                  </label>
-                </div>
-                <div class="col-sm-7 ">
-                  <angular2-multiselect [(data)]="ptagList" class="form-control" [settings]="dropdownSettings"
-                    formControlName="ptag" (onSelect)="onPtagsItemSelect($event)" (onDeSelect)="OnPtagsItemDeSelect($event)"
-                    (onSelectAll)="onPtagsSelectAll($event)" (onDeSelectAll)="onPtagsDeSelectAll($event)"></angular2-multiselect>
-                  <div class="form-control-feedback" *ngIf="form.controls['ptag'].hasError('required') && form.controls['ptag'].touched && PostObj.PrimaryPostComponents != 'None'">Primary
-                    Tags Is Required.</div>
-                </div>
-              </div>-->
-   
-
-      
-
-
-
     <div class="control-group">       
       <div class="controls">
         <input type="text" formControlName="projectname" placeholder="Project Name" class="input-xlarge">
@@ -89,7 +41,7 @@
          </div>
          <div style="float:left"><label> 0 </label></div>
          <div style="float:left">
-          <input type="range" formControlName="projectpriority" class="input-xlarge"/>       
+          <input type="range" formControlName="projectpriority" class="input-xlarge"  min="0" max="30" value="15"/>       
          </div> 
         <div style="float:left"><label> 30 </label></div>  
                     
@@ -98,28 +50,24 @@
     <div style="height:10px;clear:both"></div> 
 
     <div class="control-group">       
-      <div class="controls">   
-
-     
-          <input type="hidden" id="projectmanagerid"  formControlName="projectmanagerid" >
+      <div class="controls">      
+          <input type="hidden" id="projectmanagerid" name="projectmanagerid" formControlName="projectmanagerid" ng-model="projectmanagerid"  >
          <input type="text" name='managerdlist' list="managerdlist" formControlName="projectmanager"  placeholder="Search Manager"  >
         <datalist id="managerdlist">
-          <option *ngFor="let c of managerList" id={{c._id}} [value]="c.first_name" >{{c.first_name}} {{c.last_name}}</option>
+          <option *ngFor="let c of managerList" id={{c._id}} [value]="c.first_name" >{{c.first_name}} {{c.last_name}}</option>         
         </datalist>        
-        <div *ngIf="submitted && projectForm.controls.projectmanagerid.errors" class="error">
-          <div *ngIf="projectForm.controls.projectmanagerid.errors.required" style="color:red">Please provide Manager Name</div>
-        </div>     
+        <div *ngIf="submitted && projectForm.controls.projectmanager.errors" class="error">
+          <div *ngIf="projectForm.controls.projectmanager.errors.required" style="color:red">Please provide Manager Name</div>
+        </div>
         
       </div>       
     </div> 
-    <div style="height:10px;clear:both"></div> 
-
+    <div style="height:10px;clear:both"></div>
     
-    <div class="control-group">      
+      <div class="control-group">      
       <div class="controls" style="float:left;width:80px" >
         <button class="btn btn-success">Add</button>         
       </div>
-
       <div class="controls" style="float:left">
         <button type="reset"  class="btn btn-success" >Reset</button>         
       </div>
@@ -127,20 +75,10 @@
   </fieldset>
 </form>
 
-
-
-
 <div style="height:20px;clear:both"></div>
 
-
-
 <div class="card card-block mb-0 rounded-0 mp col-sm-12 col-md-12 col-lg-12" style="font-weight: normal;font-size:.875em;">
-    <ng2-smart-table [settings]="gridSettings" [source]="gridData" (userRowSelect)="selectRow($event)" (custom)="Update($event)"
-      (deleteConfirm)="onCustomDelete($event)" (editConfirm)="onEditConfirm($event)">
+    <ng2-smart-table [settings]="gridSettings" [source]="gridData" (userRowSelect)="selectRow($event)" 
+      (deleteConfirm)="deleteProject($event)" (editConfirm)="updateProject($event)">
     </ng2-smart-table>
 </div>
-
-
-
-
-

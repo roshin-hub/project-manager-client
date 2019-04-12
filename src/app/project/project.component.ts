@@ -2,7 +2,7 @@ import { Component, OnInit ,ViewChild } from '@angular/core';
 import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 import { FormBuilder, FormGroup, Validators,FormControl  } from '@angular/forms';
 import { DataService } from '../data.service';
-import { Product } from '../models/product';
+import { Project } from '../models/project';
 import { Observable, of } from 'rxjs';
 import { from } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -22,10 +22,13 @@ export class ProjectComponent implements OnInit {
   managerlistValue: string;
   managerList:  any;  
   gridData: any;
-  gridSettings: any;    
+  gridSettings: any;
+  statusList: any;     
 
   constructor(private formBuilder: FormBuilder,private service: DataService) { 
-     this.getProjectList();
+     
+     
+     this.getProjects();
      const actions = {
       columnTitle: 'Actions',
       add: false,
@@ -69,9 +72,9 @@ export class ProjectComponent implements OnInit {
           title: 'Start Date',
           filter: true,
           type: 'html',
-          width: '15%',
+          width: '12%',         
           valuePrepareFunction: (cell, row) => {
-            return '<label  title="' + row.start_date + '" >' + cell + '</label>';
+            return '<label  title="' + row.start_date.slice(0, -14) + '" >' + cell.slice(0, -14) + '</label>';
 
           }
         },
@@ -79,12 +82,27 @@ export class ProjectComponent implements OnInit {
           title: 'End Date',
           filter: true,
           type: 'html',
-          width: '15%',
+          width: '12%',
           valuePrepareFunction: (cell, row) => {
-            return '<label  title="' + row.end_date + '" >' + cell + '</label>';
+            return '<label  title="' + row.end_date.slice(0, -14) + '" >' + cell.slice(0, -14) + '</label>';
 
           }
         },
+
+        priority: {
+          title: 'Priority',
+          filter: true,
+          type: 'html',
+          width: '8%',  
+          /*editor: {
+            type: 'list',
+            config: { list: this.statusList }
+          },   */     
+          valuePrepareFunction: (cell, row) => {            
+              return '<label  title="' + row.priority + '" >' + cell + '</label>';
+
+          }
+        },      
            
         status: {
           title: 'Status',
@@ -99,7 +117,7 @@ export class ProjectComponent implements OnInit {
          _id: {
           title: 'Unique ID', 
           editable: false,         
-          width: '25%',
+          width: '20%',
           filter:true
         },
       }
@@ -108,15 +126,15 @@ export class ProjectComponent implements OnInit {
   } 
 
   ngOnInit() {     
-    this.projectForm = this.formBuilder.group({
-     
+    this.projectForm = this.formBuilder.group({     
       projectname: ['', Validators.required],
       projectstart: ['', Validators.required],
-      projectend: ['', Validators.required],
-      projectpriority: ['', Validators.required],
-      projectmanager: ['', Validators.required],
-      projectmanagerid: ['', Validators.required]
-    });     
+      projectend: ['', Validators.required],     
+      projectmanager: ['', Validators.required],      
+      projectpriority: ['']
+      
+    }); 
+    
     
     this.service.getUsers().subscribe(data => {
         this.managerList = data        
@@ -125,100 +143,63 @@ export class ProjectComponent implements OnInit {
 
   createProject() {
     this.submitted = true;
-
-    if (this.projectForm.invalid) {
+        if (this.projectForm.invalid) {      
         return;
     }
-
-
-    let product = new Product();
-    product.title = this.projectForm.value.title;
-    product.priority = this.projectForm.value.priority;  
-
-    this.service.createProject(product).subscribe((result) => {
-    console.log("This code will be executed when the HTTP call returns successfully")
-     });
+    
+    let project = new Project();
+    project.title = this.projectForm.value.projectname;
+    project.start_date = this.projectForm.value.projectstart;
+    project.end_date = this.projectForm.value.projectend;   
+    project.manager_id = this.projectForm.value.projectmanager;
+    project.priority = this.projectForm.value.projectpriority?this.projectForm.value.projectpriority:'15';
+    project.status = 'Defined'  
     
      
-    this.service.createProject(this.projectForm.value)
-    //console.log(this.resptxt);
-    alert('The form was submitted');
-    
-    this.projectForm.reset();
+    this.service.createProject(project).subscribe((result) => {
+        this.success = true; 
+        this.getProjects();      
+     }); 
 
-    this.success = true;
-
-    location.reload()
-
-   
-
-
-}
-getProjectList() {
+} 
+  getProjects() {
     this.service.getProjects().subscribe((response) => {
       this.gridData = response;
     });   
-  }
+  }  
 
-/*selectRow(event) {
-    if (event.isSelected == true) {
-      this.VmdDetail.update = false;
-      let vmdID = event.data.id;
-      this.getVmdById(vmdID);
+  updateProject(event) {
+    
+      if (confirm('Are you sure you want to update?')) {       
+
+        let project = new Project();
+        project.title = event.newData.title;
+        project.start_date = event.newData.start_date;
+        project.end_date = event.newData.end_date;   
+        project.manager_id = event.newData.manager_id;
+        project.priority = event.newData.priority;
+        project.status = event.newData.status;        
+
+        this.service.updateProject(event.data._id,project).subscribe((result) => {       
+            event.confirm.resolve(event.newData);
+        });         
+     
+    } else {
+      event.confirm.reject();
     }
-  }
+  }  
 
-  Update(event) {
-    let vmdID = event.data.id;
-    if (event.action == "update") {
-      this.getVmdById(vmdID);
-      this.VmdDetail.update = true;
-      this.openModal();
-    }
-    else if (event.action == "KibanaDashboard") {
-      if (event.data.metadata != null && 'kibana_url' in event.data.metadata && 'kibana_index' in event.data.metadata) {
-        let urlArray = ((event.data.metadata.kibana_url).toString()).split('/');
-        let endpoint = urlArray[0] + "//" + urlArray[2];
-        let kibanaURL = endpoint + "/app/kibana#/discover??_g=()&_a=(columns:!(KPI_Name,KPI_Type,KPI_status,Component,Env_Type,Eqp_Name),index:" + event.data.metadata.kibana_index + ",interval:auto,query:(match_all:()),sort:!('@timestamp',desc))";
-        window.open(kibanaURL, "_blank");
-      }
-      else {
-        this.toastr.warning("Kibana Dashboard Is Not Configured For VMD " + event.data.name);
-      }
-    }
-
-  }*/
-
-  onCustomDelete(event) {
-    //let vmdID = event.data.id;
-    if (confirm('Are you sure you want to delete?')) {
-      //this.deleteVMD(vmdID);
-      //this.getVmdList();
+  deleteProject(event) {
+    
+    if (confirm('Are you sure you want to delete?')) {     
+      this.service.deleteProject(event.data._id).subscribe((result) => {       
+            event.confirm.resolve(event.data);
+        });  
+     
     }
     else {
      event.confirm.reject();
     }
   }
-
-  onEditConfirm(event) {
-    
-      if (confirm('Are you sure you want to update?')) {
-      //call to remote api, remember that you have to await this
-      //event.confirm.resolve(event.newData);
-
-      var data = {"name" : event.newData.employee_name,
-                "salary" : event.newData.employee_salary,
-                "age" : event.newData.employee_age,
-                "id" : event.newData.id
-                };
-    /*this.http.put<Employee>('/api/v1/update/'+event.newData.id, data).subscribe(
-        res => {          
-          event.confirm.resolve(event.newData);
-      }
-      );*/
-    } else {
-      event.confirm.reject();
-    }
-  }  
 
 }

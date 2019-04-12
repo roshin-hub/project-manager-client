@@ -1,4 +1,4 @@
-export class Product {
+export class Project {
     _id: string;
     title: string;
     start_date: string;
