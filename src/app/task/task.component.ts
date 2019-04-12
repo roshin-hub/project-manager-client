@@ -9,10 +9,12 @@ import { DataService } from '../data.service';
 export class TaskComponent implements OnInit {
 
   users: Object;
-  constructor(private data: DataService) { }
+  constructor(private data: DataService,private service: DataService) { }
 
   
   ngOnInit() {
+
+    
 
     this.data.getUsers().subscribe(data => {
         this.users = data

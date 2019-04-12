@@ -1,3 +1,68 @@
-<p>
-  user works!
-</p>
+<div *ngIf="success"  style="color:green">
+    <strong >User added successfully</strong> 
+</div>
+<form [formGroup]="userForm" (ngSubmit)="createUser()">  
+  <fieldset>  
+     <div id="legend">
+      <legend class="">Add User</legend>
+    </div> 
+
+    <div class="control-group">       
+      <div class="controls">
+        <input type="text" formControlName="fname" placeholder="First Name" class="input-xlarge">
+        <div *ngIf="submitted && userForm.controls.fname.errors" class="error">
+          <div *ngIf="userForm.controls.fname.errors.required" style="color:red">Please provide your First Name</div>
+        </div>               
+      </div>
+    </div> 
+    <div style="height:10px;clear:both"></div> 
+
+    <div class="control-group">       
+      <div class="controls">
+        <input type="text" formControlName="lname" placeholder="Last Name" class="input-xlarge">
+        <div *ngIf="submitted && userForm.controls.lname.errors" class="error">
+          <div *ngIf="userForm.controls.lname.errors.required" style="color:red">Please provide your Last Name</div>
+        </div>               
+      </div>
+    </div> 
+    <div style="height:10px;clear:both"></div> 
+
+    <div class="control-group">       
+      <div class="controls">
+        <input type="text" formControlName="empid" placeholder="Employee Id" class="input-xlarge">
+        <div *ngIf="submitted && userForm.controls.empid.errors" class="error">
+          <div *ngIf="userForm.controls.empid.errors.required" style="color:red">Please provide your Employee Id</div>
+        </div>               
+      </div>
+    </div> 
+    <div style="height:10px;clear:both"></div>    
+ 
+    <div class="control-group">      
+      <div class="controls" style="float:left;width:80px" >
+        <button class="btn btn-success">Add</button>         
+      </div>
+
+      <div class="controls" style="float:left">
+        <button type="reset"  class="btn btn-success" >Reset</button>         
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+<div style="height:20px;clear:both"></div>
+
+<div style="clear:both;padding:0px;width: 80%;height:346px">
+  
+  <ag-grid-angular style="width: 75%; height: 100%;"     
+    class="ag-theme-balham"
+    paginationPageSize= 10
+    [pagination]="true"
+    [rowData]="rowData" 
+    [columnDefs]="columnDefs">    
+  </ag-grid-angular>
+
+</div>
+
+
+
+

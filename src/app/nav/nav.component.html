@@ -1,12 +1,16 @@
-<header>
-  <div class="container">
-    <a routerLink="/">{{ appTitle }}</a>
-    <nav>
-      <ul>
-        <li><a routerLink="/">Tasks</a></li>
-        <li><a routerLink="/project">Project</a></li>
-        <li><a routerLink="/user">User</a></li>
+<header style="border:0px solid red;">
+  
+  <div class="container" style="border:0px solid red;color:red;" >
+    
+    <a routerLink="/" style="color:white;font-weight:bold;float:left;font-size: 20px;width:300px">{{ appTitle }}</a>
+    <nav style=" font-size: 18px;float:left;">      
+      <ul>        
+        <li><a routerLink="/project" style="color:white;">Add Project</a></li>
+        <li><a routerLink="/task" style="color:white;">Add Task</a></li>
+        <li><a routerLink="/user" style="color:white;">Add User</a></li>
+        <li><a routerLink="/" style="color:white;">View Tasks</a></li>
       </ul>
-    </nav>
+    </nav>    
   </div>
 </header>
+<div style="clear:both" > </div>
