@@ -33,3 +33,45 @@ section {
     margin: 0 auto;
     padding: 2em;
 }
+
+th  {
+	 font-weight: normal;
+	 font-size: 12px;
+	 word-wrap: break-word; 
+     border: 1px solid lightgray; 
+     background:#f5f5f5 ;  
+     
+}
+
+ td  {
+	 font-weight: normal;
+	 font-size: 12px;
+	 word-wrap: break-word; 
+     border: 1px solid lightgray;   
+     
+}
+ table {
+	 table-layout: fixed;
+	 width: 22rem;
+      border: 1px solid grey; 
+     font-weight: normal;
+     font-size: 14px;
+}
+
+
+
+.fa-pencil-square-o{    
+    font-size: 20px;
+    width:25px;
+   
+
+}
+.fa-trash{
+    color: red;
+    font-size: 20px;
+    width:25px;
+   
+
+}
+
+

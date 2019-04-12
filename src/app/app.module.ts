@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,ViewChild , CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatAutocompleteModule,MatInputModule} from '@angular/material';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 
 
@@ -31,9 +32,11 @@ import {MatAutocompleteModule,MatInputModule} from '@angular/material';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatInputModule,
-    AgGridModule.withComponents([]),    
+    AgGridModule.withComponents([]),
+    Ng2SmartTableModule,    
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

@@ -132,17 +132,14 @@
 
 <div style="height:20px;clear:both"></div>
 
-<div style="clear:both;padding:0px;width: 80%;height:346px">
-  
-  <ag-grid-angular style="width: 75%; height: 100%;"     
-    class="ag-theme-balham"
-    paginationPageSize= 10
-    [pagination]="true"
-    [rowData]="rowData" 
-    [columnDefs]="columnDefs">    
-  </ag-grid-angular>
 
+
+<div class="card card-block mb-0 rounded-0 mp col-sm-12 col-md-12 col-lg-12" style="font-weight: normal;font-size:.875em;">
+    <ng2-smart-table [settings]="gridSettings" [source]="gridData" (userRowSelect)="selectRow($event)" (custom)="Update($event)"
+      (deleteConfirm)="onCustomDelete($event)" (editConfirm)="onEditConfirm($event)">
+    </ng2-smart-table>
 </div>
+
 
 
 
