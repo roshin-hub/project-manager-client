@@ -44,20 +44,25 @@
       </div>
     </div> 
     <div style="height:10px;clear:both"></div> 
+    
 
-    <div class="control-group">       
+    <label for="chkparenttask">
+      <input id="chkparenttask" name="chkparenttask" type="checkbox" > Parent Task
+      
+    </label>
+  <div class="control-group" id="parenttaskDIV" name="parenttaskDIV" style="display:none">       
       <div class="controls">           
-         <input type="text" name='userlist' list="userlist" formControlName="username"  placeholder="Search User"  >
-        <datalist id="userlist">
-          <option *ngFor="let c of userList" id={{c._id}} [value]="c.first_name" >{{c.first_name}} {{c.last_name}}</option>         
+         <input type="text" name="tasklist" list="tasklist" formControlName="parenttask"  placeholder="Search Parent Task"  >
+        <datalist id="tasklist">
+          <option *ngFor="let c of taskList" id={{c._id}} [value]="c.title" >{{c.title}} </option>         
         </datalist>        
-        <div *ngIf="submitted && taskForm.controls.username.errors" class="error">
-          <div *ngIf="taskForm.controls.username.errors.required" style="color:red">Please select a user</div>
-        </div>
-        
       </div>       
    </div> 
    <div style="height:10px;clear:both"></div>
+
+
+
+  
 
 
     <div class="control-group">       
@@ -75,6 +80,20 @@
       </div>
     </div> 
     <div style="height:10px;clear:both"></div> 
+
+    <div class="control-group">       
+      <div class="controls">           
+         <input type="text" name='userlist' list="userlist" formControlName="username"  placeholder="Search User"  >
+        <datalist id="userlist">
+          <option *ngFor="let c of userList" id={{c._id}} [value]="c.first_name" >{{c.first_name}} {{c.last_name}}</option>         
+        </datalist>        
+        <div *ngIf="submitted && taskForm.controls.username.errors" class="error">
+          <div *ngIf="taskForm.controls.username.errors.required" style="color:red">Please select a user</div>
+        </div>
+        
+      </div>       
+   </div> 
+   <div style="height:10px;clear:both"></div>
 
      
       <div class="control-group">      

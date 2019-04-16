@@ -19,6 +19,7 @@ export class TaskComponent implements OnInit {
   resptxt = '';  
   userList:  any;  
   projectList: any;   
+  taskList: any;  
 
   constructor(private formBuilder: FormBuilder,private service: DataService) {     
 
@@ -31,18 +32,23 @@ export class TaskComponent implements OnInit {
       taskend: ['', Validators.required],     
       username: ['', Validators.required],
       projecttxt: ['', Validators.required],      
-      taskpriority: ['']
+      taskpriority: [''],
+      parenttask: ['']
       
     }); 
     
     
-    this.service.getUsers().subscribe(data => {
-        this.userList = data        
+    this.service.getUsers().subscribe(userdata => {
+        this.userList = userdata        
       });
 
-    this.service.getProjects().subscribe((response) => {
-      this.projectList = response;
-    });        
+    this.service.getProjects().subscribe((projdata) => {
+      this.projectList = projdata;
+    });
+
+    this.service.getTasks().subscribe((taskdata) => {
+      this.taskList = taskdata;
+    });          
   }
 
   createTask() {
@@ -57,7 +63,7 @@ export class TaskComponent implements OnInit {
     task.end_date = this.taskForm.value.taskend;   
     task.user_id = this.taskForm.value.username;
     task.project_id = this.taskForm.value.projecttxt;
-    //task.parent_id = this.taskForm.value.taskmanager;
+    task.parent_id = this.taskForm.value.parenttask?this.taskForm.value.parenttask:'';
     task.is_parent = this.taskForm.value.is_parent?this.taskForm.value.is_parent:'0';
     task.priority = this.taskForm.value.taskpriority?this.taskForm.value.taskpriority:'15';
     task.status = 'Defined' 
