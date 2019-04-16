@@ -1,10 +1,92 @@
-<h1>Tasks</h1>
+<div *ngIf="success"  style="color:green">
+    <strong >Task added successfully</strong> 
+</div>
+<form [formGroup]="taskForm" (ngSubmit)="createTask()">  
+  <fieldset>  
+    <div id="legend">
+      <legend class="">Add Task</legend>
+    </div> 
+    <div class="control-group">       
+      <div class="controls">           
+        <input type="text" name='projectlist' list="projectlist" formControlName="projecttxt"  placeholder="Search Project"  >
+        <datalist id="projectlist">
+          <option *ngFor="let c of projectList" id={{c._id}} [value]="c.title" >{{c.title}}</option>         
+        </datalist>        
+        <div *ngIf="submitted && taskForm.controls.projecttxt.errors" class="error">
+          <div *ngIf="taskForm.controls.projecttxt.errors.required" style="color:red">Please select a project</div>
+        </div>        
+      </div>       
+    </div> 
+    <div style="height:10px;clear:both"></div>
+    <div class="control-group">       
+      <div class="controls">
+        <input type="text" formControlName="taskname" placeholder="Task Name" class="input-xlarge">
+        <div *ngIf="submitted && taskForm.controls.taskname.errors" class="error">
+          <div *ngIf="taskForm.controls.taskname.errors.required" style="color:red">Please provide Task Name</div>
+        </div>               
+      </div>
+    </div> 
+    <div style="height:10px;clear:both"></div> 
 
-<button (click)="firstClick()">Click me</button>
+    <div class="control-group">       
+      <div class="controls">
+         <div style="float:left;width:100px;font-weight: normal;">
+          <label for="taskpriority" >
+          Priority 
+          </label>
+         </div>
+         <div style="float:left"><label> 0 </label></div>
+         <div style="float:left">
+          <input type="range" formControlName="taskpriority" class="input-xlarge"  min="0" max="30" value="15"/>       
+         </div> 
+        <div style="float:left"><label> 30 </label></div>  
+                    
+      </div>
+    </div> 
+    <div style="height:10px;clear:both"></div> 
 
-<ul *ngIf="users">
-  <li *ngFor="let user of users.data">
-    <img [src]="user.avatar">
-    <p>{{ user.first_name }} {{ user.last_name }}</p>
-  </li>
-</ul>
+    <div class="control-group">       
+      <div class="controls">           
+         <input type="text" name='userlist' list="userlist" formControlName="username"  placeholder="Search User"  >
+        <datalist id="userlist">
+          <option *ngFor="let c of userList" id={{c._id}} [value]="c.first_name" >{{c.first_name}} {{c.last_name}}</option>         
+        </datalist>        
+        <div *ngIf="submitted && taskForm.controls.username.errors" class="error">
+          <div *ngIf="taskForm.controls.username.errors.required" style="color:red">Please select a user</div>
+        </div>
+        
+      </div>       
+   </div> 
+   <div style="height:10px;clear:both"></div>
+
+
+    <div class="control-group">       
+      <div class="controls" style="width:200px;float:left">
+        <input type="text" formControlName="taskstart" placeholder="Start Date" class="input-xlarge" onfocus="(this.type='date')" >        
+        <div *ngIf="submitted && taskForm.controls.taskstart.errors" class="error">
+          <div *ngIf="taskForm.controls.taskstart.errors.required" style="color:red">Please provide Start Date</div>
+        </div>               
+      </div>
+       <div class="controls" style="width:200px;float:left">
+        <input type="text" formControlName="taskend" placeholder="End Date" class="input-xlarge" onfocus="(this.type='date')" >        
+        <div *ngIf="submitted && taskForm.controls.taskend.errors" class="error">
+          <div *ngIf="taskForm.controls.taskend.errors.required" style="color:red">Please provide End Date</div>
+        </div>               
+      </div>
+    </div> 
+    <div style="height:10px;clear:both"></div> 
+
+     
+      <div class="control-group">      
+      <div class="controls" style="float:left;width:80px" >
+        <button class="btn btn-success">Add</button>         
+      </div>
+      <div class="controls" style="float:left">
+        <button type="reset"  class="btn btn-success" >Reset</button>         
+      </div>
+    </div>
+  </fieldset>
+</form>
+
+<div style="height:20px;clear:both"></div>
+
