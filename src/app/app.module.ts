@@ -14,8 +14,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatAutocompleteModule,MatInputModule} from '@angular/material';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TasksComponent } from './tasks/tasks.component';
+import {enableProdMode} from '@angular/core';
 
 
+
+enableProdMode();
 
 @NgModule({
   declarations: [
@@ -38,6 +41,7 @@ import { TasksComponent } from './tasks/tasks.component';
     Ng2SmartTableModule,    
   ],
   providers: [],
+  
   bootstrap: [AppComponent],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })

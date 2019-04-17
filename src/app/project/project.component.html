@@ -51,7 +51,8 @@
 
     <div class="control-group">       
       <div class="controls">      
-          <input type="hidden" id="projectmanagerid" name="projectmanagerid" formControlName="projectmanagerid" ng-model="projectmanagerid"  >
+          
+            <!--<input type="hidden" id="projectmanagerid" name="projectmanagerid" formControlName="projectmanagerid" ng-model="projectmanagerid"  >-->
          <input type="text" name='managerdlist' list="managerdlist" formControlName="projectmanager"  placeholder="Search Manager"  >
         <datalist id="managerdlist">
           <option *ngFor="let c of managerList" id={{c._id}} [value]="c.first_name" >{{c.first_name}} {{c.last_name}}</option>         

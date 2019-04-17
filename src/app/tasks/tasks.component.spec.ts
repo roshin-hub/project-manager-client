@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TasksComponent } from './tasks.component';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { Ng2SmartTableModule, LocalDataSource } from 'ng2-smart-table';
 
 describe('TasksComponent', () => {
   let component: TasksComponent;
@@ -8,7 +11,8 @@ describe('TasksComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TasksComponent ]
+      declarations: [ TasksComponent ],
+      imports: [ HttpClientModule,Ng2SmartTableModule],
     })
     .compileComponents();
   }));
@@ -22,4 +26,11 @@ describe('TasksComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+   it('check gettasks  exists', () => {
+    expect(component.getTasks()).toBeTruthy;
+  });
+
+  
+
 });
