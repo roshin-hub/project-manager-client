@@ -27,6 +27,7 @@
     "angular2-multiselect-dropdown": "^4.2.1",
     "bootstrap": "^4.3.1",
     "core-js": "^2.5.4",
+    "karma-phantomjs-launcher": "^1.0.4",
     "moment": "^2.24.0",
     "ng-multiselect-dropdown": "^0.2.3",
     "ng2-completer": "^2.0.8",
