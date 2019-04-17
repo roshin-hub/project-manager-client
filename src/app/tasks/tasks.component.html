@@ -1,0 +1,13 @@
+
+ <fieldset>  
+    <div id="legend">
+      <legend class="">View Tasks</legend>
+    </div>
+</fieldset>
+<div style="height:10px;clear:both"></div> 
+
+<div class="card card-block mb-0 rounded-0 mp col-sm-12 col-md-12 col-lg-12" style="font-weight: normal;font-size:.875em;">
+    <ng2-smart-table [settings]="taskgridSettings" [source]="taskgridData" (userRowSelect)="selectRow($event)" 
+      (deleteConfirm)="deleteTask($event)" (editConfirm)="updateTask($event)">
+    </ng2-smart-table>
+</div>

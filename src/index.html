@@ -10,23 +10,25 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script>  
+      $(function() {
+        $('input[name=managerdlist]').on('input',function() { 
+                    
+          var selectedOption = $('#managerdlist option[value="'+$(this).val()+'"]');
+          $("#projectmanagerid").val(selectedOption.attr('id'));             
+          
+        });
+      }); 
+     
+       $(document).on("change", "input[name='chkparenttask']", function (){            
+            if(this.checked)
+                $('#parenttaskDIV').show();
+            else
+                $('#parenttaskDIV').hide();
 
-  <script>
-
-  
-         $(function() {
-            $('input[name=managerdlist]').on('input',function() {              
-              var selectedOption = $('#managerdlist option[value="'+$(this).val()+'"]');
-              $("#projectmanagerid").val(selectedOption.attr('id'));             
-              
-            });
-          }); 
-        
-      
-
-        
-
-    </script>
+        });
+    
+  </script>
 </head>
 <body>
   <app-root></app-root>

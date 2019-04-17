@@ -4,8 +4,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, of } from 'rxjs';
 import { ServerConfig } from '../environments/environment';
 import { AppError } from './models/app.error';
-import { Product } from './models/product';
+import { Project } from './models/project';
 import { User } from './models/user';
+import { Task } from './models/task';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -25,31 +26,44 @@ export class DataService {
 
    firstClick() {
     return console.log('clicked');
-  }
+  }  
 
- 
+  getProjects(): Observable<any | AppError> {
+    return this.http.get<any>(this.server.url + '/project')
+      .pipe(          
+        catchError(err => this.appError.handleError(err))
+      );
+  }   
+  
 
-  getProjects() {
-    return this.http.get('http://localhost:8080/project');
-  }
-
-  /*createProject(data) {
-    headers= " { 'Content-Type': 'application/x-www-form-urlencoded' }"
-    return this.http.post('http://localhost:8080/project/create', data,headers) 
-
-  }*/
-
-  createProject(product: Product): Observable<Product | AppError> {
-    console.log(product)
-    console.log(this.server.url)
+  createProject(project: Project): Observable<Project | AppError> {   
     
-    return this.http.post<Product>(this.server.url+'/project/create', product, httpOptions)
+    return this.http.post<Project>(this.server.url+'/project/create', project, httpOptions)
      .pipe(             
-        //catchError(err => this.appError.handleError(err))
+        
         catchError(err => this.appError.handleError(err))        
       );
       
   } 
+
+   updateProject(projectId: string,project: Project): Observable<Project | AppError> {       
+    return this.http.put<Project>(this.server.url+'/project/'+projectId+'/update', project, httpOptions)
+     .pipe(             
+       
+        catchError(err => this.appError.handleError(err))        
+      );
+      
+  } 
+
+   deleteProject(projectId: string): Observable<Project | AppError> {      
+    return this.http.delete<any>(this.server.url+'/project/'+projectId+'/delete')
+     .pipe(             
+        
+        catchError(err => this.appError.handleError(err))        
+      );
+      
+  } 
+
 
   createUser(user: User): Observable<User | AppError> {
       
@@ -65,6 +79,40 @@ export class DataService {
       .pipe(          
         catchError(err => this.appError.handleError(err))
       );
-  }   
+  } 
+
+  createTask(task: Task): Observable<Task | AppError> {   
+    
+    return this.http.post<Task>(this.server.url+'/task/create', task, httpOptions)
+     .pipe(         
+        catchError(err => this.appError.handleError(err))        
+      );
+      
+  }
+
+  getTasks(): Observable<any | AppError> {
+    return this.http.get<any>(this.server.url + '/task')
+      .pipe(          
+        catchError(err => this.appError.handleError(err))
+      );
+  } 
+
+   updateTask(taskId: string,task: Task): Observable<Task  | AppError> {       
+    return this.http.put<Task>(this.server.url+'/task/'+taskId+'/update', task, httpOptions)
+     .pipe(             
+       
+        catchError(err => this.appError.handleError(err))        
+      );
+      
+  } 
+
+   deleteTask(taskId: string): Observable<Task | AppError> {      
+    return this.http.delete<any>(this.server.url+'/task/'+taskId+'/delete')
+     .pipe(             
+        
+        catchError(err => this.appError.handleError(err))        
+      );
+      
+  }      
   
 }
