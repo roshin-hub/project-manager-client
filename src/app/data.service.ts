@@ -24,9 +24,6 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-   firstClick() {
-    return console.log('clicked');
-  }  
 
   getProjects(): Observable<any | AppError> {
     return this.http.get<any>(this.server.url + '/project')

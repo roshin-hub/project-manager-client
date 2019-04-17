@@ -71,12 +71,12 @@ describe('UserComponent', () => {
         const headerTitles = Array.from(headerCells).map((cell: any) =>
             cell.textContent.trim()
         );
-        expect(headerTitles).toEqual(['First Name', 'Last Name','Employee Id']);
+        expect(headerTitles).toEqual(['First Name', 'Last Name']);
     });
 
     it('check getUsers  exists', () => {
     expect(component.getUsers()).toBeTruthy;
-  });
+  }); 
 
    
 });

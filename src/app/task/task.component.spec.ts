@@ -26,8 +26,17 @@ describe('TaskComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
+
   it('form invalid when empty', () => {
         expect(component.taskForm.valid).toBeFalsy();
     });
+
+  it('check create task invalid', () => {
+    component.submitted =true;      
+    expect(component.createTask()).toBeTruthy;
+  });
+
+
+
+    
 });
