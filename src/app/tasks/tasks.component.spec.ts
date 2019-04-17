@@ -31,6 +31,29 @@ describe('TasksComponent', () => {
     expect(component.getTasks()).toBeTruthy;
   });
 
+  it('check Tasks gridSettings  title', () => {
+    expect(component.taskgridSettings.columns.title.valuePrepareFunction("1","1")).toContain("label");;
+  });
+ 
+
+   it('check Tasks gridSettings  priority', () => {
+    expect(component.taskgridSettings.columns.priority.valuePrepareFunction("1","1")).toContain("label");;
+  });
+
+  it('check Tasks gridSettings  parent_id', () => {
+    expect(component.taskgridSettings.columns.parent_id.valuePrepareFunction("1","1")).toContain("label");;
+  });
+
+  it('check Tasks gridSettings  project_id', () => {
+    expect(component.taskgridSettings.columns.project_id.valuePrepareFunction("1","1")).toContain("label");;
+  });
+
+  it('check Tasks gridSettings  status', () => {
+    expect(component.taskgridSettings.columns.status.valuePrepareFunction("1","1")).toContain("label");;
+  });
+
+   
+
   
 
 });
