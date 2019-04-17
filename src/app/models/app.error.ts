@@ -11,7 +11,7 @@ export class AppError {
         dataError.errorNumber=100;
         //Capture user defined error if any
         dataError.message = err.error != undefined? err.error.error : err.message;
-        console.log(err.message);
+        //console.log(err.message);
         dataError.friendlyMessage = "An error occured while processing the request!!";
         return of(dataError);
       }
